@@ -111,3 +111,31 @@ ALTER TABLE Students
 	ADD CONSTRAINT CK_Students_PostalCode
 		CHECK (PostalCode Like'[A-Z][0-9][A-Z][0-9][A-Z][0-9]')
 	  --Match for T4R1H2:        T    4    R    1    H    2
+
+GO
+
+
+
+--3) Add a default costraint for the status column of StudentCourses.
+--  Set 'e' as the default value
+ALTER TABLE StudentsCourses
+	ADD CONSTRAINT DF_StudentCourses_Status
+		DEFAULT ('E') FOR [Status]
+
+GO
+/*-------other odds and ends------*/
+sp_help Students --get information for students table
+
+
+-- In a table, we can have some columns be "calculated' or "derived' columns
+-- where the value of the column is a calculation from other columns
+
+CREATE TABLE Invoice
+(
+	InvoiceId		int			NOT NULL,
+	Subtotal		money		NOT NULL,
+	GST				money		NOT NULL,
+	Total		AS Subtotal + GST  -- Computed column
+
+
+)
